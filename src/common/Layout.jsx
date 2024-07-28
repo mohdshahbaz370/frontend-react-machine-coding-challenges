@@ -18,7 +18,10 @@ const Layout = () => {
             <Link to="/ticTacToe">tic-tac-toe</Link>
           </li>
           <li>
-            <Link to="/infiniteScroll">infinite-scroll</Link>
+            <Link to="/infiniteScroll1">infinite-scroll-version1</Link>
+          </li>
+          <li>
+            <Link to="/infiniteScroll2">infinite-scroll-version2</Link>
           </li>
         </ul>
       </nav>

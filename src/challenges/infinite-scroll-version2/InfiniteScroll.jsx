@@ -1,11 +1,17 @@
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import useSearch from "./useSearch";
 import styles from "./infiniteScroll.module.css";
 
 const InfiniteScroll = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const { loading, error, data, hasMore } = useSearch(pageNumber);
+  const [query, setQuery] = useState("");
+  const { loading, error, data, hasMore } = useSearch(pageNumber, query);
   const observer = useRef();
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    setPageNumber(1);
+  };
 
   const lastBookElementRef = useCallback(
     (node) => {
@@ -20,20 +26,27 @@ const InfiniteScroll = () => {
     },
     [loading, hasMore]
   );
-
+  console.log("///", data);
   return (
     <div className={styles.container}>
-      {data.map((itm, index) => {
+      <input
+        type="text"
+        className={styles.search}
+        placeholder="Search..."
+        onChange={handleChange}
+        value={query}
+      />
+      {data.map((book, index) => {
         if (data?.length === index + 1) {
           return (
-            <div className={styles.item} key={itm?.id} ref={lastBookElementRef}>
-              {itm?.title}
+            <div className={styles.item} key={book} ref={lastBookElementRef}>
+              {book}
             </div>
           );
         } else {
           return (
-            <div className={styles.item} key={itm?.id}>
-              {itm?.title}
+            <div className={styles.item} key={book}>
+              {book}
             </div>
           );
         }
