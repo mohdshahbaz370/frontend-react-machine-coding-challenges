@@ -1,0 +1,51 @@
+.container {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 401px;
+  margin: 0 auto;
+}
+
+.flexContainer {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.flexContainer > .flexItems {
+  border: 1px solid black;
+  padding: 5px;
+  width: 30%;
+  height: 50px;
+}
+
+.flexItems:hover {
+  cursor: pointer;
+}
+
+.mx-5 {
+  width: 33%;
+}
+
+.rematch {
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  translate: all 0.33s;
+}
+
+.rematch:hover {
+  transform: scale(1.1);
+  background-color: gold;
+  cursor: pointer;
+}
+
+.status {
+  margin: 20px 0;
+}
+
+.item {
+  margin: 15px 0;
+}
