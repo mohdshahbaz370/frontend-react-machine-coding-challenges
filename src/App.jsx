@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./common/Layout";
+import Practise from "./challenges/practise/Practise";
 import StarRating from "./challenges/star-rating/StarRating";
 import TodoList from "./challenges/todo-list/TodoList";
 import TodoListDragDrop from "./challenges/todo-list-drag-and-drop/TodoListDragDrop";
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />} />
+          <Route path="/practise" element={<Practise />} />
           <Route
             path="/starRating"
             element={<StarRating value={2} total={5} />}
