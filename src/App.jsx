@@ -7,6 +7,7 @@ import TodoListDragDrop from "./challenges/todo-list-drag-and-drop/TodoListDragD
 import TicTacToe from "./challenges/tic-tac-toe/TicTacToe";
 import InfiniteScroll1 from "./challenges/infinite-scroll-version1/InfiniteScroll";
 import InfiniteScroll2 from "./challenges/infinite-scroll-version2/InfiniteScroll";
+import TodoListDragDrop2 from "./challenges/test/TodoListDragDrop";
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/ticTacToe" element={<TicTacToe />} />
           <Route path="/infiniteScroll1" element={<InfiniteScroll1 />} />
           <Route path="/infiniteScroll2" element={<InfiniteScroll2 />} />
+          <Route path="/todoListDragDrop2" element={<TodoListDragDrop2 />} />
         </Routes>
       </BrowserRouter>
     </>
