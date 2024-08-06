@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import KanbanBoardList from "./KanbanBoardList";
-import styles from "./KanbanBoard.module.css";
+import styles from "./kanbanBoard.module.css";
 
 const KanbanBoard = () => {
   const [todoList, setTodoList] = useState([]);

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import styles from "./todoListDragDrop.module.css";
+import styles from "./kanbanBoard.module.css";
 
 const KanbanBoardList = ({
   todoList,
