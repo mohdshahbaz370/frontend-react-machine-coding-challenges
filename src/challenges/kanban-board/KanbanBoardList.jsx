@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styles from "./todoListDragDrop.module.css";
 
-const DragDropList = ({
+const KanbanBoardList = ({
   todoList,
   handleTodoEdit,
   handleInProgressEdit,
@@ -381,4 +381,4 @@ const DragDropList = ({
   );
 };
 
-export default DragDropList;
+export default KanbanBoardList;

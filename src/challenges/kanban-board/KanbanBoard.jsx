@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import DragDropList from "./DragDropList";
-import styles from "./todoListDragDrop.module.css";
+import KanbanBoardList from "./KanbanBoardList";
+import styles from "./KanbanBoard.module.css";
 
-const TodoListDragDrop = () => {
+const KanbanBoard = () => {
   const [todoList, setTodoList] = useState([]);
   const [inProgressList, setInProgressList] = useState([]);
   const [closedList, setClosedList] = useState([]);
@@ -115,7 +115,7 @@ const TodoListDragDrop = () => {
         </div>
       </div>
       <div id={styles.todoStatusContainers}>
-        <DragDropList
+        <KanbanBoardList
           todoList={todoList}
           handleTodoDelete={handleTodoDelete}
           handleInProgressDelete={handleInProgressDelete}
@@ -138,4 +138,4 @@ const TodoListDragDrop = () => {
   );
 };
 
-export default TodoListDragDrop;
+export default KanbanBoard;

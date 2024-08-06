@@ -27,7 +27,7 @@ const Layout = () => {
             <Link to="/infiniteScroll2">infinite-scroll-version2</Link>
           </li>
           <li>
-            <Link to="/todoListDragDrop2">todo-list-drag-and-drop2</Link>
+            <Link to="/KanbanBoard">Kanban-board</Link>
           </li>
         </ul>
       </nav>
