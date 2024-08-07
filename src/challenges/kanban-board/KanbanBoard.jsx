@@ -55,41 +55,14 @@ const KanbanBoard = () => {
     setFormValue("");
   };
 
-  const handleFormCancel = () => {
+  const handleReset = () => {
     setFormValue("");
-  };
-
-  const handleTodoDelete = (id) => {
-    setTodoList((prevItems) => prevItems.filter((itm) => itm.id !== id));
-  };
-
-  const handleInProgressDelete = (id) => {
-    setInProgressList((prevItems) => prevItems.filter((itm) => itm.id !== id));
-  };
-
-  const handleClosedListDelete = (id) => {
-    setClosedList((prevItems) => prevItems.filter((itm) => itm.id !== id));
-  };
-
-  const handleTodoEdit = ({ id, value }) => {
-    setIsEditId(id);
-    setValue(value);
-  };
-
-  const handleInProgressEdit = ({ id, value }) => {
-    setIsEditId(id);
-    setValue(value);
-  };
-
-  const handleClosedListEdit = ({ id, value }) => {
-    setIsEditId(id);
-    setValue(value);
   };
 
   return (
     <div className={`${styles.app}`}>
       <div className={styles.main}>
-        <h1>TODO LIST DRAG AND DROP</h1>
+        <h1>Kanban Board</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -103,26 +76,16 @@ const KanbanBoard = () => {
           </button>
           <button
             type="reset"
-            onClick={handleFormCancel}
+            onClick={handleReset}
             className={`${styles.btnCancel} ${styles.btn}`}
           >
             Cancel
           </button>
         </form>
-
-        <div className={styles.hint}>
-          <i>Double click on todo to toggle completion status</i>
-        </div>
       </div>
       <div id={styles.todoStatusContainers}>
         <KanbanBoardList
           todoList={todoList}
-          handleTodoDelete={handleTodoDelete}
-          handleInProgressDelete={handleInProgressDelete}
-          handleClosedListDelete={handleClosedListDelete}
-          handleTodoEdit={handleTodoEdit}
-          handleInProgressEdit={handleInProgressEdit}
-          handleClosedListEdit={handleClosedListEdit}
           setTodoList={setTodoList}
           inProgressList={inProgressList}
           closedList={closedList}

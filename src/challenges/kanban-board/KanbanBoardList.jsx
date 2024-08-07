@@ -1,29 +1,23 @@
 /* eslint-disable react/prop-types */
 import styles from "./kanbanBoard.module.css";
+import List from "./List";
 
 const KanbanBoardList = ({
   todoList,
-  handleTodoEdit,
-  handleInProgressEdit,
-  handleClosedListEdit,
   setTodoList,
   inProgressList,
   closedList,
   setInProgressList,
   setClosedList,
-  handleClosedListDelete,
-  handleInProgressDelete,
-  handleTodoDelete,
   isEditId,
   setValue,
   value,
   setIsEditId,
 }) => {
-  const handleDragStart = (e, index, id) => {
-    const parentId = e.target.parentElement.id;
+  const handleDragStart = (e, index, id, columnId) => {
     e.dataTransfer.setData(
       "data",
-      JSON.stringify({ index, parentId: Number(parentId), id })
+      JSON.stringify({ index, parentId: columnId, id })
     );
   };
 
@@ -31,352 +25,259 @@ const KanbanBoardList = ({
     e.preventDefault();
   };
 
-  const handletodoContainerOnDrop = (e) => {
+  const handleContainerOnDrop = (e, columnId) => {
     let draggedItemdata = e.dataTransfer.getData("data");
     draggedItemdata = JSON.parse(draggedItemdata);
-    if (draggedItemdata.parentId === 2) {
-      if (inProgressList?.length === 0) {
-        setTodoList([inProgressList?.[draggedItemdata?.index]]);
-      } else {
-        setTodoList((prev) => [
-          ...prev,
-          inProgressList?.[draggedItemdata?.index],
-        ]);
-      }
-      const updatedList = [...inProgressList];
-      updatedList.splice(draggedItemdata?.index, 1);
-      setInProgressList(updatedList);
-    } else if (draggedItemdata.parentId === 3) {
-      if (closedList?.length === 0) {
-        setTodoList([closedList?.[draggedItemdata?.index]]);
-      } else {
-        setTodoList((prev) => [...prev, closedList?.[draggedItemdata?.index]]);
-      }
-      const updatedList = [...closedList];
-      updatedList.splice(draggedItemdata?.index, 1);
-      setClosedList(updatedList);
-    }
-  };
-
-  const handleTodoOnDrop = (e, dropIndex) => {
-    e.stopPropagation();
-    let draggedItemdata = e.dataTransfer.getData("data");
-    draggedItemdata = JSON.parse(draggedItemdata);
-    const updatedList = [...todoList];
-    if (updatedList?.find((itm) => itm.id === draggedItemdata.id)) {
-      const item = updatedList.splice(draggedItemdata?.index, 1)?.[0];
-      updatedList.splice(dropIndex, 0, item);
-    } else {
+    if (columnId === 1) {
       if (draggedItemdata.parentId === 2) {
-        updatedList.splice(
-          dropIndex,
-          0,
-          inProgressList?.[draggedItemdata?.index]
-        );
-        const updatedInProgresList = [...inProgressList];
-        updatedInProgresList.splice(draggedItemdata?.index, 1);
-        setInProgressList(updatedInProgresList);
-      } else {
-        updatedList.splice(dropIndex, 0, closedList?.[draggedItemdata?.index]);
-        const updatedClosedList = [...closedList];
-        updatedClosedList.splice(draggedItemdata?.index, 1);
-        setClosedList(updatedClosedList);
+        if (inProgressList?.length === 0) {
+          setTodoList([inProgressList?.[draggedItemdata?.index]]);
+        } else {
+          setTodoList((prev) => [
+            ...prev,
+            inProgressList?.[draggedItemdata?.index],
+          ]);
+        }
+        const updatedList = [...inProgressList];
+        updatedList.splice(draggedItemdata?.index, 1);
+        setInProgressList(updatedList);
+      } else if (draggedItemdata.parentId === 3) {
+        if (closedList?.length === 0) {
+          setTodoList([closedList?.[draggedItemdata?.index]]);
+        } else {
+          setTodoList((prev) => [
+            ...prev,
+            closedList?.[draggedItemdata?.index],
+          ]);
+        }
+        const updatedList = [...closedList];
+        updatedList.splice(draggedItemdata?.index, 1);
+        setClosedList(updatedList);
+      }
+    } else if (columnId === 2) {
+      if (draggedItemdata.parentId === 1) {
+        if (todoList?.length === 0) {
+          setInProgressList([todoList?.[draggedItemdata?.index]]);
+        } else {
+          setInProgressList((prev) => [
+            ...prev,
+            todoList?.[draggedItemdata?.index],
+          ]);
+        }
+        const updatedList = [...todoList];
+        updatedList.splice(draggedItemdata?.index, 1);
+        setTodoList(updatedList);
+      } else if (draggedItemdata.parentId === 3) {
+        if (closedList?.length === 0) {
+          setInProgressList([closedList?.[draggedItemdata?.index]]);
+        } else {
+          setInProgressList((prev) => [
+            ...prev,
+            closedList?.[draggedItemdata?.index],
+          ]);
+        }
+        const updatedList = [...closedList];
+        updatedList.splice(draggedItemdata?.index, 1);
+        setClosedList(updatedList);
+      }
+    } else {
+      if (draggedItemdata.parentId === 1) {
+        if (todoList?.length === 0) {
+          setClosedList([todoList?.[draggedItemdata?.index]]);
+        } else {
+          setClosedList((prev) => [
+            ...prev,
+            todoList?.[draggedItemdata?.index],
+          ]);
+        }
+        const updatedList = [...todoList];
+        updatedList.splice(draggedItemdata?.index, 1);
+        setTodoList(updatedList);
+      } else if (draggedItemdata.parentId === 2) {
+        if (inProgressList?.length === 0) {
+          setClosedList([inProgressList?.[draggedItemdata?.index]]);
+        } else {
+          setClosedList((prev) => [
+            ...prev,
+            inProgressList?.[draggedItemdata?.index],
+          ]);
+        }
+        const updatedList = [...inProgressList];
+        updatedList.splice(draggedItemdata?.index, 1);
+        setInProgressList(updatedList);
       }
     }
-    setTodoList(updatedList);
   };
 
-  const handleInProgressContainerOnDrop = (e) => {
+  const handleOnDrop = (e, dropIndex, columnId) => {
+    e.stopPropagation();
     let draggedItemdata = e.dataTransfer.getData("data");
     draggedItemdata = JSON.parse(draggedItemdata);
-    if (draggedItemdata.parentId === 1) {
-      if (todoList?.length === 0) {
-        setInProgressList([todoList?.[draggedItemdata?.index]]);
-      } else {
-        setInProgressList((prev) => [
-          ...prev,
-          todoList?.[draggedItemdata?.index],
-        ]);
-      }
+    if (columnId === 1) {
       const updatedList = [...todoList];
-      updatedList.splice(draggedItemdata?.index, 1);
-      setTodoList(updatedList);
-    } else if (draggedItemdata.parentId === 3) {
-      if (closedList?.length === 0) {
-        setInProgressList([closedList?.[draggedItemdata?.index]]);
+      if (updatedList?.find((itm) => itm.id === draggedItemdata.id)) {
+        const item = updatedList.splice(draggedItemdata?.index, 1)?.[0];
+        updatedList.splice(dropIndex, 0, item);
       } else {
-        setInProgressList((prev) => [
-          ...prev,
-          closedList?.[draggedItemdata?.index],
-        ]);
+        if (draggedItemdata.parentId === 2) {
+          updatedList.splice(
+            dropIndex,
+            0,
+            inProgressList?.[draggedItemdata?.index]
+          );
+          const updatedInProgressList = [...inProgressList];
+          updatedInProgressList.splice(draggedItemdata?.index, 1);
+          setInProgressList(updatedInProgressList);
+        } else {
+          updatedList.splice(
+            dropIndex,
+            0,
+            closedList?.[draggedItemdata?.index]
+          );
+          const updatedClosedList = [...closedList];
+          updatedClosedList.splice(draggedItemdata?.index, 1);
+          setClosedList(updatedClosedList);
+        }
       }
+      setTodoList(updatedList);
+    } else if (columnId === 2) {
+      const updatedList = [...inProgressList];
+      if (updatedList?.find((itm) => itm.id === draggedItemdata.id)) {
+        const item = updatedList.splice(draggedItemdata?.index, 1)?.[0];
+        updatedList.splice(dropIndex, 0, item);
+      } else {
+        if (draggedItemdata.parentId === 1) {
+          updatedList.splice(dropIndex, 0, todoList?.[draggedItemdata?.index]);
+          const updatedTodoList = [...todoList];
+          updatedTodoList.splice(draggedItemdata?.index, 1);
+          setTodoList(updatedTodoList);
+        } else {
+          updatedList.splice(
+            dropIndex,
+            0,
+            closedList?.[draggedItemdata?.index]
+          );
+          const updatedClosedList = [...closedList];
+          updatedClosedList.splice(draggedItemdata?.index, 1);
+          setClosedList(updatedClosedList);
+        }
+      }
+      setInProgressList(updatedList);
+    } else {
       const updatedList = [...closedList];
-      updatedList.splice(draggedItemdata?.index, 1);
+      if (updatedList?.find((itm) => itm.id === draggedItemdata.id)) {
+        const item = updatedList.splice(draggedItemdata?.index, 1)?.[0];
+        updatedList.splice(dropIndex, 0, item);
+      } else {
+        if (draggedItemdata.parentId === 1) {
+          updatedList.splice(dropIndex, 0, todoList?.[draggedItemdata?.index]);
+          const updatedTodoList = [...todoList];
+          updatedTodoList.splice(draggedItemdata?.index, 1);
+          setTodoList(updatedTodoList);
+        } else {
+          updatedList.splice(
+            dropIndex,
+            0,
+            inProgressList?.[draggedItemdata?.index]
+          );
+          const updatedInProgressList = [...inProgressList];
+          updatedInProgressList.splice(draggedItemdata?.index, 1);
+          setInProgressList(updatedInProgressList);
+        }
+      }
       setClosedList(updatedList);
     }
   };
 
-  const handleInProgressOnDrop = (e, dropIndex) => {
-    e.stopPropagation();
-    let draggedItemdata = e.dataTransfer.getData("data");
-    draggedItemdata = JSON.parse(draggedItemdata);
-    const updatedList = [...inProgressList];
-    if (updatedList?.find((itm) => itm.id === draggedItemdata.id)) {
-      const item = updatedList.splice(draggedItemdata?.index, 1)?.[0];
-      updatedList.splice(dropIndex, 0, item);
+  const handleUpdate = (columnId) => {
+    if (columnId === 1) {
+      setTodoList((prevItems) =>
+        prevItems.map((itm) => (itm.id === isEditId ? { ...itm, value } : itm))
+      );
+    } else if (columnId === 2) {
+      setInProgressList((prevItems) =>
+        prevItems.map((itm) => (itm.id === isEditId ? { ...itm, value } : itm))
+      );
     } else {
-      if (draggedItemdata.parentId === 1) {
-        updatedList.splice(dropIndex, 0, todoList?.[draggedItemdata?.index]);
-        const updatedTodoList = [...todoList];
-        updatedTodoList.splice(draggedItemdata?.index, 1);
-        setTodoList(updatedTodoList);
-      } else {
-        updatedList.splice(dropIndex, 0, closedList?.[draggedItemdata?.index]);
-        const updatedClosedList = [...closedList];
-        updatedClosedList.splice(draggedItemdata?.index, 1);
-        setClosedList(updatedClosedList);
-      }
+      setClosedList((prevItems) =>
+        prevItems.map((itm) => (itm.id === isEditId ? { ...itm, value } : itm))
+      );
     }
-    setInProgressList(updatedList);
+    setIsEditId(null);
+    setValue("");
   };
 
-  const handleClosedContainerOnDrop = (e) => {
-    let draggedItemdata = e.dataTransfer.getData("data");
-    draggedItemdata = JSON.parse(draggedItemdata);
-    if (draggedItemdata.parentId === 1) {
-      if (todoList?.length === 0) {
-        setClosedList([todoList?.[draggedItemdata?.index]]);
-      } else {
-        setClosedList((prev) => [...prev, todoList?.[draggedItemdata?.index]]);
-      }
-      const updatedList = [...todoList];
-      updatedList.splice(draggedItemdata?.index, 1);
-      setTodoList(updatedList);
-    } else if (draggedItemdata.parentId === 2) {
-      if (inProgressList?.length === 0) {
-        setClosedList([inProgressList?.[draggedItemdata?.index]]);
-      } else {
-        setClosedList((prev) => [
-          ...prev,
-          inProgressList?.[draggedItemdata?.index],
-        ]);
-      }
-      const updatedList = [...inProgressList];
-      updatedList.splice(draggedItemdata?.index, 1);
-      setInProgressList(updatedList);
-    }
-  };
-
-  const handleClosedOnDrop = (e, dropIndex) => {
-    e.stopPropagation();
-    let draggedItemdata = e.dataTransfer.getData("data");
-    draggedItemdata = JSON.parse(draggedItemdata);
-    const updatedList = [...closedList];
-    if (updatedList?.find((itm) => itm.id === draggedItemdata.id)) {
-      const item = updatedList.splice(draggedItemdata?.index, 1)?.[0];
-      updatedList.splice(dropIndex, 0, item);
+  const handleDelete = (id, columnId) => {
+    if (columnId === 1) {
+      setTodoList((prevItems) => prevItems.filter((itm) => itm.id !== id));
+    } else if (columnId === 2) {
+      setInProgressList((prevItems) =>
+        prevItems.filter((itm) => itm.id !== id)
+      );
     } else {
-      if (draggedItemdata.parentId === 1) {
-        updatedList.splice(dropIndex, 0, todoList?.[draggedItemdata?.index]);
-        const updatedTodoList = [...todoList];
-        updatedTodoList.splice(draggedItemdata?.index, 1);
-        setTodoList(updatedTodoList);
-      } else {
-        updatedList.splice(
-          dropIndex,
-          0,
-          inProgressList?.[draggedItemdata?.index]
-        );
-        const updatedInProgressList = [...inProgressList];
-        updatedInProgressList.splice(draggedItemdata?.index, 1);
-        setInProgressList(updatedInProgressList);
-      }
+      setClosedList((prevItems) => prevItems.filter((itm) => itm.id !== id));
     }
-    setClosedList(updatedList);
   };
 
-  const handleTodoUpdate = () => {
-    setTodoList((prevItems) =>
-      prevItems.map((itm) => (itm.id === isEditId ? { ...itm, value } : itm))
-    );
-    setIsEditId(null);
-    setValue("");
+  const handleEdit = ({ id, value }) => {
+    setIsEditId(id);
+    setValue(value);
   };
 
-  const handleInProgressUpdate = () => {
-    setInProgressList((prevItems) =>
-      prevItems.map((itm) => (itm.id === isEditId ? { ...itm, value } : itm))
-    );
-    setIsEditId(null);
-    setValue("");
-  };
-
-  const handleClosedListUpdate = () => {
-    setClosedList((prevItems) =>
-      prevItems.map((itm) => (itm.id === isEditId ? { ...itm, value } : itm))
-    );
-    setIsEditId(null);
-    setValue("");
+  const handleCancel = () => {
+    setIsEditId("");
   };
 
   return (
     <>
-      <ul
+      <List
         id={1}
-        className={styles.todoStatusContainer}
-        onDrop={handletodoContainerOnDrop}
-        onDragOver={handleDragOver}
-      >
-        {todoList.map((itm, index) => (
-          <li
-            key={itm.id}
-            className={styles.todoList}
-            draggable
-            onDragStart={(e) => handleDragStart(e, index, itm.id)}
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleTodoOnDrop(e, index)}
-            id={`drag_${itm.id}`}
-          >
-            {isEditId === itm.id ? (
-              <>
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-                <button
-                  className={`${styles.btnEdit} ${styles.btn}`}
-                  onClick={handleTodoUpdate}
-                >
-                  Update
-                </button>
-              </>
-            ) : (
-              <>
-                <span className={itm.isDone ? styles.completed : ""}>
-                  {itm.value}
-                </span>
-                <button
-                  className={`${styles.btnEdit} ${styles.btn}`}
-                  onClick={() => handleTodoEdit(itm)}
-                >
-                  Edit
-                </button>
-              </>
-            )}
-            <button
-              className={`${styles.btnDelete} ${styles.btn}`}
-              onClick={() => handleTodoDelete(itm.id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-      <ul
+        list={todoList}
+        styles={styles}
+        handleDragStart={handleDragStart}
+        handleDragOver={handleDragOver}
+        handleOnDrop={handleOnDrop}
+        isEditId={isEditId}
+        value={value}
+        setValue={setValue}
+        handleUpdate={handleUpdate}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        handleContainerOnDrop={handleContainerOnDrop}
+        handleCancel={handleCancel}
+      />
+      <List
         id={2}
-        onDrop={handleInProgressContainerOnDrop}
-        onDragOver={handleDragOver}
-        className={styles.todoStatusContainer}
-      >
-        {inProgressList.map((itm, index) => (
-          <li
-            key={itm.id}
-            className={styles.todoList}
-            draggable
-            onDragStart={(e) => handleDragStart(e, index, itm.id)}
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleInProgressOnDrop(e, index)}
-            id={`drag_${itm.id}`}
-          >
-            {isEditId === itm.id ? (
-              <>
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-                <button
-                  className={`${styles.btnEdit} ${styles.btn}`}
-                  onClick={handleInProgressUpdate}
-                >
-                  Update
-                </button>
-              </>
-            ) : (
-              <>
-                <span className={itm.isDone ? styles.completed : ""}>
-                  {itm.value}
-                </span>
-                <button
-                  className={`${styles.btnEdit} ${styles.btn}`}
-                  onClick={() => handleInProgressEdit(itm)}
-                >
-                  Edit
-                </button>
-              </>
-            )}
-            <button
-              className={`${styles.btnDelete} ${styles.btn}`}
-              onClick={() => handleInProgressDelete(itm.id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-      <ul
+        list={inProgressList}
+        styles={styles}
+        handleDragStart={handleDragStart}
+        handleDragOver={handleDragOver}
+        handleOnDrop={handleOnDrop}
+        isEditId={isEditId}
+        value={value}
+        setValue={setValue}
+        handleUpdate={handleUpdate}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        handleContainerOnDrop={handleContainerOnDrop}
+        handleCancel={handleCancel}
+      />
+      <List
         id={3}
-        onDrop={handleClosedContainerOnDrop}
-        onDragOver={handleDragOver}
-        className={styles.todoStatusContainer}
-      >
-        {closedList.map((itm, index) => (
-          <li
-            key={itm.id}
-            className={styles.todoList}
-            draggable
-            onDragStart={(e) => handleDragStart(e, index, itm.id)}
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleClosedOnDrop(e, index)}
-            id={`drag_${itm.id}`}
-          >
-            {isEditId === itm.id ? (
-              <>
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-                <button
-                  className={`${styles.btnEdit} ${styles.btn}`}
-                  onClick={handleClosedListUpdate}
-                >
-                  Update
-                </button>
-              </>
-            ) : (
-              <>
-                <span className={itm.isDone ? styles.completed : ""}>
-                  {itm.value}
-                </span>
-                <button
-                  className={`${styles.btnEdit} ${styles.btn}`}
-                  onClick={() => handleClosedListEdit(itm)}
-                >
-                  Edit
-                </button>
-              </>
-            )}
-            <button
-              className={`${styles.btnDelete} ${styles.btn}`}
-              onClick={() => handleClosedListDelete(itm.id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+        list={closedList}
+        styles={styles}
+        handleDragStart={handleDragStart}
+        handleDragOver={handleDragOver}
+        handleOnDrop={handleOnDrop}
+        isEditId={isEditId}
+        value={value}
+        setValue={setValue}
+        handleUpdate={handleUpdate}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        handleContainerOnDrop={handleContainerOnDrop}
+        handleCancel={handleCancel}
+      />
     </>
   );
 };
