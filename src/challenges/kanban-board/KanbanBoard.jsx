@@ -1,57 +1,38 @@
 import { useState, useEffect, useRef } from "react";
-import KanbanBoardList from "./KanbanBoardList";
+import KanbanBoardLists from "./KanbanBoardLists";
 import styles from "./kanbanBoard.module.css";
 
 const KanbanBoard = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [inProgressList, setInProgressList] = useState([]);
-  const [closedList, setClosedList] = useState([]);
-  const [value, setValue] = useState("");
-  const [isEditId, setIsEditId] = useState(null);
   const [formValue, setFormValue] = useState("");
-  const isInitialRenderTodo = useRef(true);
-  const isInitialRenderInProgress = useRef(true);
-  const isInitialRenderclosed = useRef(true);
+  const isInitialRender = useRef(true);
+  const [lists, setLists] = useState({
+    todoList: [],
+    inProgressList: [],
+    closedList: [],
+  });
 
   useEffect(() => {
-    const todoListItems = localStorage.getItem("todoList");
-    const inProgressListItems = localStorage.getItem("inProgressList");
-    const closedListItems = localStorage.getItem("closedList");
-    if (todoListItems) setTodoList(JSON.parse(todoListItems));
-    if (inProgressListItems) setInProgressList(JSON.parse(inProgressListItems));
-    if (closedListItems) setClosedList(JSON.parse(closedListItems));
+    const lists = localStorage.getItem("lists");
+    if (lists) setLists(JSON.parse(lists));
   }, []);
 
   useEffect(() => {
-    if (isInitialRenderTodo.current) {
-      isInitialRenderTodo.current = false;
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
     } else {
-      localStorage.setItem("todoList", JSON.stringify(todoList));
+      localStorage.setItem("lists", JSON.stringify(lists));
     }
-  }, [todoList?.length]);
-
-  useEffect(() => {
-    if (isInitialRenderInProgress.current) {
-      isInitialRenderInProgress.current = false;
-    } else {
-      localStorage.setItem("inProgressList", JSON.stringify(inProgressList));
-    }
-  }, [inProgressList?.length]);
-
-  useEffect(() => {
-    if (isInitialRenderclosed.current) {
-      isInitialRenderclosed.current = false;
-    } else {
-      localStorage.setItem("closedList", JSON.stringify(closedList));
-    }
-  }, [closedList.length]);
+  }, [lists]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTodoList((prevItems) => [
-      ...prevItems,
-      { value: formValue, id: new Date().getTime(), isDone: false },
-    ]);
+    setLists((prev) => ({
+      ...prev,
+      todoList: [
+        ...prev.todoList,
+        { value: formValue, id: new Date().getTime() },
+      ],
+    }));
     setFormValue("");
   };
 
@@ -83,19 +64,8 @@ const KanbanBoard = () => {
           </button>
         </form>
       </div>
-      <div id={styles.todoStatusContainers}>
-        <KanbanBoardList
-          todoList={todoList}
-          setTodoList={setTodoList}
-          inProgressList={inProgressList}
-          closedList={closedList}
-          setInProgressList={setInProgressList}
-          setClosedList={setClosedList}
-          isEditId={isEditId}
-          setValue={setValue}
-          value={value}
-          setIsEditId={setIsEditId}
-        />
+      <div id={styles.statusContainers}>
+        <KanbanBoardLists lists={lists} setLists={setLists} />
       </div>
     </div>
   );

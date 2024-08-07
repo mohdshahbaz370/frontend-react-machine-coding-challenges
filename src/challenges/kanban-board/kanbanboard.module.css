@@ -39,20 +39,24 @@
 
 .btnCancel {
   background-color: blue;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .btnDelete {
   background-color: red;
-  margin-left: 8px;
 }
 
 .btnEdit {
   background-color: orange;
+  margin-right: 10px;
 }
 
 .btnCancel {
   background-color: blue;
+}
+
+.btnUpdate {
+  background-color: green;
 }
 
 .btnReset,
@@ -62,24 +66,46 @@
 
 .ul {
   width: 50%;
-  margin: 0 auto;
+  margin: 50px auto;
+  list-style-type: none;
 }
 
-.todoList {
+.list {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   margin-top: 30px;
+  border: 1px solid gray;
+  padding: 10px;
 }
 
-#todoStatusContainers {
+.list input {
+  width: 90px;
+}
+
+.list:hover {
+  cursor: pointer;
+}
+
+#statusContainers {
   display: flex;
   justify-content: space-between;
 }
 
-.todoStatusContainer {
+.statusContainer {
   width: 25%;
-  border: 1px solid green;
+  border: 1px solid black;
   border-radius: 5px;
-  height: 300px;
+  padding: 10px;
+}
+
+.emptyList {
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 10px;
+}
+
+.statusField {
+  text-align: center;
+  border-bottom: 1px solid black;
 }
