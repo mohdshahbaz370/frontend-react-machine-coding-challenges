@@ -30,17 +30,19 @@ const useDragAndDrop = ({ lists, setLists }) => {
 
   const handleContainerOnDrop = (e, columnId) => {
     const draggedItemdata = JSON.parse(e.dataTransfer.getData("data"));
-    const sourceColumn = getColumnName(draggedItemdata.parentId);
-    const targetColumn = getColumnName(columnId);
-    const sourceList = lists[sourceColumn];
-    const targetList = lists[targetColumn];
-    const [draggedItem] = sourceList.splice(draggedItemdata.index, 1);
-    targetList.push(draggedItem);
-    setLists((prev) => ({
-      ...prev,
-      [sourceColumn]: sourceList,
-      [targetColumn]: targetList,
-    }));
+    if (columnId !== draggedItemdata.parentId) {
+      const sourceColumn = getColumnName(draggedItemdata.parentId);
+      const targetColumn = getColumnName(columnId);
+      const sourceList = lists[sourceColumn];
+      const targetList = lists[targetColumn];
+      const [draggedItem] = sourceList.splice(draggedItemdata.index, 1);
+      targetList.push(draggedItem);
+      setLists((prev) => ({
+        ...prev,
+        [sourceColumn]: sourceList,
+        [targetColumn]: targetList,
+      }));
+    }
   };
 
   return {
