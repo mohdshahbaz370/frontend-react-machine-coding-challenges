@@ -1,0 +1,82 @@
+import { useState, useEffect, useRef } from "react";
+import TodoLists from "./TodoLists";
+import styles from "./todo.module.css";
+
+const Todo = () => {
+  const [formValue, setFormValue] = useState("");
+  const isInitialRender = useRef(true);
+  const [lists, setLists] = useState({
+    todoList: [],
+    inProgressList: [],
+    closedList: [],
+  });
+
+  useEffect(() => {
+    try {
+      const lists = localStorage.getItem("lists");
+      if (lists) setLists(JSON.parse(lists));
+    } catch (error) {
+      console.error("Failed to load lists from localStorage", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (isInitialRender.current) {
+        isInitialRender.current = false;
+      } else {
+        localStorage.setItem("lists", JSON.stringify(lists));
+      }
+    } catch (error) {
+      console.error("Failed to save lists to localStorage", error);
+    }
+  }, [lists]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLists((prev) => ({
+      ...prev,
+      todoList: [
+        ...prev.todoList,
+        { value: formValue, id: new Date().getTime() },
+      ],
+    }));
+    setFormValue("");
+  };
+
+  const handleReset = () => {
+    setFormValue("");
+  };
+
+  return (
+    <div className={`${styles.app}`}>
+      <div className={styles.main}>
+        <h1>Todo List Drag and Drop</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className={styles.textField}
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+          />
+          <br />
+          <button type="submit" className={`${styles.btnSubmit} ${styles.btn}`}>
+            Submit
+          </button>
+          <button
+            type="reset"
+            onClick={handleReset}
+            className={`${styles.btnCancel} ${styles.btn}`}
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+      <div id={styles.statusContainers}>
+        <TodoLists lists={lists} setLists={setLists} />
+      </div>
+    </div>
+  );
+};
+
+export default Todo;
