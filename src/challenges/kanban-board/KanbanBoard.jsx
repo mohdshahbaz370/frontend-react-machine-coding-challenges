@@ -12,15 +12,23 @@ const KanbanBoard = () => {
   });
 
   useEffect(() => {
-    const lists = localStorage.getItem("lists");
-    if (lists) setLists(JSON.parse(lists));
+    try {
+      const lists = localStorage.getItem("lists");
+      if (lists) setLists(JSON.parse(lists));
+    } catch (error) {
+      console.error("Failed to load lists from localStorage", error);
+    }
   }, []);
 
   useEffect(() => {
-    if (isInitialRender.current) {
-      isInitialRender.current = false;
-    } else {
-      localStorage.setItem("lists", JSON.stringify(lists));
+    try {
+      if (isInitialRender.current) {
+        isInitialRender.current = false;
+      } else {
+        localStorage.setItem("lists", JSON.stringify(lists));
+      }
+    } catch (error) {
+      console.error("Failed to save lists to localStorage", error);
     }
   }, [lists]);
 
