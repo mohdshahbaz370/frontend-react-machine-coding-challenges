@@ -29,6 +29,12 @@ const Layout = () => {
           <li>
             <Link to="/KanbanBoard">Kanban-board</Link>
           </li>
+          <li>
+            <Link to="/debouncedInputSearchBar">Debounce-Input-Search-Bar</Link>
+          </li>
+          <li>
+            <Link to="/throttledShootingGame">Throttled-Shooting-Game</Link>
+          </li>
         </ul>
       </nav>
     </>

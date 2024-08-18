@@ -8,6 +8,9 @@ import TicTacToe from "./challenges/tic-tac-toe/TicTacToe";
 import InfiniteScroll1 from "./challenges/infinite-scroll-version1/InfiniteScroll";
 import InfiniteScroll2 from "./challenges/infinite-scroll-version2/InfiniteScroll";
 import KanbanBoard from "./challenges/kanban-board/KanbanBoard";
+import DebouncedInputSearchBar from "./challenges/debounced-input-search-bar/DebouncedInputSearchBar";
+import ThrottledShootingGame from "./challenges/throttled-shooting-game/ThrottledShootingGame";
+
 function App() {
   return (
     <>
@@ -25,6 +28,14 @@ function App() {
           <Route path="/infiniteScroll1" element={<InfiniteScroll1 />} />
           <Route path="/infiniteScroll2" element={<InfiniteScroll2 />} />
           <Route path="/KanbanBoard" element={<KanbanBoard />} />
+          <Route
+            path="/debouncedInputSearchBar"
+            element={<DebouncedInputSearchBar />}
+          />
+          <Route
+            path="/throttledShootingGame"
+            element={<ThrottledShootingGame />}
+          />
         </Routes>
       </BrowserRouter>
     </>
