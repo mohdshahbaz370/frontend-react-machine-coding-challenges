@@ -5,12 +5,13 @@ const getData = () => {
 };
 
 const debounce = (func, ms) => {
-  let intervalId;
+  let timerId;
   return () => {
-    clearInterval(intervalId);
-    intervalId = setTimeout(func, ms);
+    clearTimeout(timerId);
+    timerId = setTimeout(func, ms);
   };
 };
+
 const InputSearchBar = () => {
   const handleOnKeyUp = debounce(getData, 1000);
 
