@@ -35,6 +35,9 @@ const Layout = () => {
           <li>
             <Link to="/throttledShootingGame">Throttled-Shooting-Game</Link>
           </li>
+          <li>
+            <Link to="/typeaHead">TypeaHead-Search-Bar</Link>
+          </li>
         </ul>
       </nav>
     </>

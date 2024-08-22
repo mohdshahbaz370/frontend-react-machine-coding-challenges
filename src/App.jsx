@@ -10,6 +10,7 @@ import InfiniteScroll2 from "./challenges/infinite-scroll-version2/InfiniteScrol
 import KanbanBoard from "./challenges/kanban-board/KanbanBoard";
 import DebouncedInputSearchBar from "./challenges/debounced-input-search-bar/DebouncedInputSearchBar";
 import ThrottledShootingGame from "./challenges/throttled-shooting-game/ThrottledShootingGame";
+import TypeaHead from "./challenges/typeahead-search-bar/TypeaHead";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             path="/throttledShootingGame"
             element={<ThrottledShootingGame />}
           />
+          <Route path="/typeaHead" element={<TypeaHead />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,0 +1,22 @@
+.ul {
+  list-style-type: none;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  width: 50%;
+  margin: 0px auto;
+}
+
+.list {
+  background-color: red;
+}
+
+.searchBar {
+  width: 50%;
+}
+
+.container {
+  text-align: center;
+  width: 50%;
+  margin: 0px auto;
+}
