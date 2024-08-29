@@ -38,6 +38,9 @@ const Layout = () => {
           <li>
             <Link to="/typeaHead">TypeaHead-Search-Bar</Link>
           </li>
+          <li>
+            <Link to="/accordion">Accordion</Link>
+          </li>
         </ul>
       </nav>
     </>

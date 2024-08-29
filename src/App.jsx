@@ -11,6 +11,7 @@ import KanbanBoard from "./challenges/kanban-board/KanbanBoard";
 import DebouncedInputSearchBar from "./challenges/debounced-input-search-bar/DebouncedInputSearchBar";
 import ThrottledShootingGame from "./challenges/throttled-shooting-game/ThrottledShootingGame";
 import TypeaHead from "./challenges/typeahead-search-bar/TypeaHead";
+import AccordionApp from "./challenges/accordion/AccordionApp";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             element={<ThrottledShootingGame />}
           />
           <Route path="/typeaHead" element={<TypeaHead />} />
+          <Route path="/accordion" element={<AccordionApp />} />
         </Routes>
       </BrowserRouter>
     </>
