@@ -12,6 +12,8 @@ import DebouncedInputSearchBar from "./challenges/debounced-input-search-bar/Deb
 import ThrottledShootingGame from "./challenges/throttled-shooting-game/ThrottledShootingGame";
 import TypeaHead from "./challenges/typeahead-search-bar/TypeaHead";
 import AccordionApp from "./challenges/accordion/AccordionApp";
+import Carousel from "./challenges/carousel/Carousel";
+import Toast from "./challenges/toast-popup/Toast";
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
           />
           <Route path="/typeaHead" element={<TypeaHead />} />
           <Route path="/accordion" element={<AccordionApp />} />
+          <Route path="/carousel" element={<Carousel />} />
+          <Route path="/toast" element={<Toast />} />
         </Routes>
       </BrowserRouter>
     </>

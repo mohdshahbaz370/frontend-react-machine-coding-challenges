@@ -41,6 +41,12 @@ const Layout = () => {
           <li>
             <Link to="/accordion">Accordion</Link>
           </li>
+          <li>
+            <Link to="/carousel">Carousel</Link>
+          </li>
+          <li>
+            <Link to="/toast">Toast Popup</Link>
+          </li>
         </ul>
       </nav>
     </>
