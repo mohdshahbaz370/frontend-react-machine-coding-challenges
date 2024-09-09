@@ -14,6 +14,7 @@ import TypeaHead from "./challenges/typeahead-search-bar/TypeaHead";
 import AccordionApp from "./challenges/accordion/AccordionApp";
 import Carousel from "./challenges/carousel/Carousel";
 import Toast from "./challenges/toast-popup/Toast";
+import LoadMoreBtn from "./challenges/load-more-button-pagination/LoadMoreBtn";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/accordion" element={<AccordionApp />} />
           <Route path="/carousel" element={<Carousel />} />
           <Route path="/toast" element={<Toast />} />
+          <Route path="/loadMoreBtn" element={<LoadMoreBtn />} />
         </Routes>
       </BrowserRouter>
     </>

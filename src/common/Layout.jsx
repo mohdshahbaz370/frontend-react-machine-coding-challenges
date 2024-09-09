@@ -47,6 +47,9 @@ const Layout = () => {
           <li>
             <Link to="/toast">Toast Popup</Link>
           </li>
+          <li>
+            <Link to="/loadMoreBtn">Load More Button Pagination</Link>
+          </li>
         </ul>
       </nav>
     </>
