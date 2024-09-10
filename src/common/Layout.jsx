@@ -50,6 +50,9 @@ const Layout = () => {
           <li>
             <Link to="/loadMoreBtn">Load More Button Pagination</Link>
           </li>
+          <li>
+            <Link to="/pagination">Pagination</Link>
+          </li>
         </ul>
       </nav>
     </>

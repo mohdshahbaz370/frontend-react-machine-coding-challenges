@@ -15,6 +15,7 @@ import AccordionApp from "./challenges/accordion/AccordionApp";
 import Carousel from "./challenges/carousel/Carousel";
 import Toast from "./challenges/toast-popup/Toast";
 import LoadMoreBtn from "./challenges/load-more-button-pagination/LoadMoreBtn";
+import Pagination from "./challenges/pagination/Pagination";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/carousel" element={<Carousel />} />
           <Route path="/toast" element={<Toast />} />
           <Route path="/loadMoreBtn" element={<LoadMoreBtn />} />
+          <Route path="/pagination" element={<Pagination />} />
         </Routes>
       </BrowserRouter>
     </>
