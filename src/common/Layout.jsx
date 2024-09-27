@@ -53,6 +53,9 @@ const Layout = () => {
           <li>
             <Link to="/pagination">Pagination</Link>
           </li>
+          <li>
+            <Link to="/columnTable">Column Table</Link>
+          </li>
         </ul>
       </nav>
     </>
