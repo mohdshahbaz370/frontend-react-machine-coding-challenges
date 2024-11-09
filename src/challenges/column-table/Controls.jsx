@@ -1,8 +1,9 @@
 import React from "react";
+import styles from "./columnTable.module.css";
 
 const Controls = ({ rows, columns, setRows, setColumns }) => {
   return (
-    <section>
+    <section className={styles.section}>
       <label>
         Set number of rows:
         <input
